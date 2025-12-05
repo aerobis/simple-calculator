@@ -1,30 +1,34 @@
 let display = document.querySelector("#display")
-let leftSide;
-let operator;
-let rightSide;
+let leftSide = '';
+let operator = '';
+let rightSide = '';
 
+
+//NUMBER CONTAINER
 let numberContainer = document.querySelector("#number-side");
 numberContainer.addEventListener("click", (event)=>{
     let clickedElement = event.target;
     if(clickedElement.tagName === "BUTTON"){
-        if(isNaN(operator) && isNaN(leftSide)){ //Check if a number is already on the left side
-            leftSide = clickedElement.textContent; //If not, make the clicked element the first number
-            display.textContent += `${leftSide}`; 
+        if(operator == ''){ //Check if an operator has been placed
+            leftSide += clickedElement.textContent; //If not, make the clicked element the first number
+            display.textContent += clickedElement.textContent; 
                 console.log(leftSide)
-        }else if (!isNaN(leftSide)){ //If an operator is there, make this the rightSide.
-            rightSide = clickedElement.textContent;
-            display.textContent += `${rightSide}`;
+        }else if (operator != ''){ //If an operator is there, make this the rightSide.
+            rightSide += clickedElement.textContent;
+            display.textContent += clickedElement.textContent;
                 console.log(rightSide)
         }
     }
 });
 
+
+//OPERATOR CONTAINER
 let operatorContainer = document.querySelector("#operator-side");
 operatorContainer.addEventListener("click", (event)=>{
     let clickedElement = event.target;
 
     if(clickedElement.tagName === "BUTTON" && clickedElement.id != "result-button"){
-        if(isNaN(rightSide)){ //Check if there is already a number on the right side
+        if(rightSide == '' && operator == ''){ //Check if there is already a number on the right side
             if(clickedElement.textContent == "÷"){
                 operator = "/"
             }else if(clickedElement.textContent == "X"){
@@ -33,7 +37,7 @@ operatorContainer.addEventListener("click", (event)=>{
                 operator = clickedElement.textContent;
             }
             //Since the division and multiplication options are invalid operators by themselves
-            display.textContent += `${operator}`
+            display.textContent += clickedElement.textContent;
                 console.log(operator)
         }
     }
