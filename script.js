@@ -61,6 +61,9 @@ operatorContainer.addEventListener("click", (event)=>{
 
     //RESULT BUTTON
     if(clickedElement.tagName === "BUTTON" && clickedElement.id == "result-button"){
+        if(operator == '' || rightSide == ''){
+            return;
+        }
         let result = calculate();
         display.textContent = `${result}`;
     }
@@ -103,6 +106,11 @@ function multiply(a, b){
 };
 
 function divide(a, b){
+    if(b == 0){
+        alert("Very cheeky!");
+        display.textContent = "ERROR!"
+        return "";
+    };
     return Number((a/b).toFixed(11)); //Converting the result (which becomes a string) back to a number
 };
 
