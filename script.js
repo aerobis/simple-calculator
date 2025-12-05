@@ -27,7 +27,9 @@ let operatorContainer = document.querySelector("#operator-side");
 operatorContainer.addEventListener("click", (event)=>{
     let clickedElement = event.target;
 
-    if(clickedElement.tagName === "BUTTON" && clickedElement.id != "result-button"){
+    //NORMAL OPERATOR BUTTONS
+    if(clickedElement.tagName === "BUTTON" && clickedElement.id != "result-button"
+        && clickedElement.id != "delete-button" && clickedElement.id != "all-clear-button"){
         if(operator == ''){ //Check if an operator has already been placed
             if(clickedElement.textContent == "÷"){
                 operator = "/";
@@ -57,13 +59,24 @@ operatorContainer.addEventListener("click", (event)=>{
         }
     }
 
+    //RESULT BUTTON
     if(clickedElement.tagName === "BUTTON" && clickedElement.id == "result-button"){
         let result = calculate();
         display.textContent = `${result}`;
-    
-        // console.log(leftSide)
-        // console.log(operator)
-        // console.log(rightSide)
+    }
+
+    //DELETE BUTTON
+    if(clickedElement.tagName === "BUTTON" && clickedElement.id == "delete-button"){
+        if(rightSide != ''){
+            rightSide =  rightSide.slice(0, -1);
+            display.textContent = display.textContent.slice(0, -1)
+        }else if(operator != ''){
+            operator = '';
+            display.textContent = display.textContent.slice(0, -1)
+        }else if(leftSide != ''){
+            leftSide = leftSide.slice(0, -1);
+            display.textContent = display.textContent.slice(0, -1)
+        }
     }
 });
 
@@ -82,11 +95,12 @@ function multiply(a, b){
 };
 
 function divide(a, b){
-    return Number((a/b).toFixed(2)); //Converting the result (which becomes a string) back to a number
+    return Number((a/b).toFixed(11)); //Converting the result (which becomes a string) back to a number
 };
 
 //<------------->
 
+//CALCULATE FUNCTION
 function calculate(){
     let left = Number(leftSide);
     // console.log(leftSide)
@@ -108,7 +122,7 @@ function calculate(){
             break;
     }
 
-    leftSide = result;
+    leftSide = result; //Make the result the left side for continuity, soft-reset every other value.
     operator = '';
     rightSide = '';
     
