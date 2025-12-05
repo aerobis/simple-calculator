@@ -145,4 +145,37 @@ function calculate(){
     return result;
 };
 
+//KEYBOARD SUPPORT
+const keyMap = {
+    "0": "#number-0",
+    "1": "#number-1",
+    "2": "#number-2",
+    "3": "#number-3",
+    "4": "#number-4",
+    "5": "#number-5",
+    "6": "#number-6",
+    "7": "#number-7",
+    "8": "#number-8",
+    "9": "#number-9",
+    ".": "#period",
+    "+":"#add-button",
+    "-":"#subtract-button",
+    "*":"#multiply-button",
+    "X":"#multiply-button",
+    "/":"#divide-button",
+    "Backspace": "#delete-button",
+    "Enter": "#result-button",
+    "Escape":"#all-clear-button"
+}
+
+document.addEventListener("keydown", (event)=>{
+    //Since enter key bugs out sometimes
+    if(event.key == "Enter"){
+        event.preventDefault();
+    }
+
+    const selector = keyMap[event.key];
+    const btn = document.querySelector(selector);
+    btn.click();
+});
 
