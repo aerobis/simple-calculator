@@ -78,6 +78,14 @@ operatorContainer.addEventListener("click", (event)=>{
             display.textContent = display.textContent.slice(0, -1)
         }
     }
+
+    //ALL CLEAR BUTTON
+    if(clickedElement.tagName === "BUTTON" && clickedElement.id == "all-clear-button"){
+        leftSide = '';
+        operator = '';
+        rightSide = '';
+        display.textContent = '';
+    }
 });
 
 
