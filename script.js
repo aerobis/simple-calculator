@@ -10,10 +10,10 @@ numberContainer.addEventListener("click", (event)=>{
     let clickedElement = event.target;
     if(clickedElement.tagName === "BUTTON"){
         if(operator == ''){ //Check if an operator has been placed
-            leftSide += clickedElement.textContent; //If not, make the clicked element the first number
+            leftSide += clickedElement.textContent; //Until it is, make everything clicked the left side
             display.textContent += clickedElement.textContent; 
                 console.log(leftSide)
-        }else if (operator != ''){ //If an operator is there, make this the rightSide.
+        }else if (operator != ''){ //If an operator is there, make everything else the rightSide.
             rightSide += clickedElement.textContent;
             display.textContent += clickedElement.textContent;
                 console.log(rightSide)
@@ -28,32 +28,47 @@ operatorContainer.addEventListener("click", (event)=>{
     let clickedElement = event.target;
 
     if(clickedElement.tagName === "BUTTON" && clickedElement.id != "result-button"){
-        if(rightSide == '' && operator == ''){ //Check if there is already a number on the right side
+        if(operator == ''){ //Check if an operator has already been placed
             if(clickedElement.textContent == "÷"){
-                operator = "/"
+                operator = "/";
             }else if(clickedElement.textContent == "X"){
-                operator = "*"
+                operator = "*";
             }else{
                 operator = clickedElement.textContent;
             }
             //Since the division and multiplication options are invalid operators by themselves
-            display.textContent += clickedElement.textContent;
+            display.textContent += clickedElement.textContent; 
                 console.log(operator)
+        }else{ //On a second operator placement, calculate result and then place operator.
+            let result = calculate();
+            display.textContent = `${result}`;
+
+            if(clickedElement.textContent == "÷"){
+                operator = "/";
+            }else if(clickedElement.textContent == "X"){
+                operator = "*";
+            }else{
+                operator = clickedElement.textContent;
+            }
+
+            display.textContent += clickedElement.textContent;
+            
+            
         }
     }
 
     if(clickedElement.tagName === "BUTTON" && clickedElement.id == "result-button"){
         let result = calculate();
         display.textContent = `${result}`;
-
-        console.log(leftSide)
-        console.log(operator)
-        console.log(rightSide)
+    
+        // console.log(leftSide)
+        // console.log(operator)
+        // console.log(rightSide)
     }
 });
 
 
-
+//BASIC FUNCTIONS ------------->
 function add(a, b){
     return a + b;
 };
@@ -69,6 +84,8 @@ function multiply(a, b){
 function divide(a, b){
     return Number((a/b).toFixed(2)); //Converting the result (which becomes a string) back to a number
 };
+
+//<------------->
 
 function calculate(){
     let left = Number(leftSide);
@@ -91,7 +108,10 @@ function calculate(){
             break;
     }
 
-    // console.log(result);
+    leftSide = result;
+    operator = '';
+    rightSide = '';
+    
     return result;
 };
 
