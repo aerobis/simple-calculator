@@ -21,9 +21,11 @@ div{
     margin-top: 50px;
     height: 10%;
     font-size: 30px;
+    font-weight: bold;
     text-align: center;
 
     background-color: rgb(101, 185, 101);
+    color: rgb(30, 30, 122);
 }
 
 #button-container{
@@ -50,11 +52,18 @@ div{
 
 
 .numbers, .operators{
-    height: 25%;
     width: 25%;
     background-color: white;
     font-weight: bold;
     font-size: 20px;
     margin: auto;
+}
+
+.operators{
+    height: 25%;
+}
+
+.numbers{
+    height: 15%
 }
 
